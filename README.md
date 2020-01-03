@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Woodworker Toolkit
+
+> A nice little collection of tools for woodworkers
 
 ## Available Scripts
 

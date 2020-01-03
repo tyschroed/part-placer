@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*", "src/shared/*", "test/*"]
+    }
+  },
+  "include": ["src", "test/*"],
+  "typeAcquisition": {
+    "include": [
+        "jest"
+    ]
+}
+}
