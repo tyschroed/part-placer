@@ -4,15 +4,24 @@ import ErrorBoundary from "react-error-boundary";
 import { LoadingMessage } from "./shared/components/pattern";
 import Header from "./shared/components/Header";
 import Helmet from "react-helmet";
-import { createGlobalStyle } from "styled-components";
-import { StylesProvider } from "@material-ui/core";
+import styled, { createGlobalStyle } from "styled-components";
+import { StylesProvider, Container } from "@material-ui/core";
 import { StoreProvider } from "./screens/home/components/Store";
-import {SnackbarProvider} from 'notistack';
+import { SnackbarProvider } from "notistack";
+import Footer from "./shared/components/Footer";
 
 const GlobalStyles = createGlobalStyle`
 body {
   background-color:#333;
 }
+#root {
+  display:flex;
+  min-height:100vh;
+  flex-direction:column;
+}
+`;
+const ContentContainer = styled.div`
+  flex: 1;
 `;
 
 const Home = React.lazy(() => import("./screens/home"));
@@ -27,7 +36,7 @@ function ErrorFallback({ error }) {
 }
 export default function App() {
   return (
-    <div>
+    <>
       <SnackbarProvider>
         <StoreProvider>
           <StylesProvider injectFirst>
@@ -36,18 +45,23 @@ export default function App() {
               <title>Cutlist Generator</title>
             </Helmet>
             <Header />
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Suspense
-                fallback={<LoadingMessage>Loading Application</LoadingMessage>}
-              >
-                <Router>
-                  <Home path="/" />
-                </Router>
-              </Suspense>
-            </ErrorBoundary>
+              <ContentContainer>
+                <ErrorBoundary FallbackComponent={ErrorFallback}>
+                  <Suspense
+                    fallback={
+                      <LoadingMessage>Loading Application</LoadingMessage>
+                    }
+                  >
+                    <Router>
+                      <Home path="/" />
+                    </Router>
+                  </Suspense>
+                </ErrorBoundary>
+              </ContentContainer>
+            <Footer />
           </StylesProvider>
         </StoreProvider>
       </SnackbarProvider>
-    </div>
+    </>
   );
 }

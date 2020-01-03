@@ -58,7 +58,14 @@ export default function MaterialCutList({
       id
     };
   };
-  let initialParts = parts.length ? parts : [createPart(1)];
+  let initialTouched;
+  let initialParts = parts;
+  if(!parts.length) {
+    initialParts = [createPart(1)]
+    initialTouched = {parts : [{
+        name : true
+    }]}
+  }
   const closeOnSelect = cb => {
     return event => {
       handleClose();
@@ -73,7 +80,8 @@ export default function MaterialCutList({
       initialValues={{
         parts: initialParts
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      initialTouched={initialTouched}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         const processedParts = values.parts.map(part => {
             return {
                 ...part,
@@ -82,10 +90,11 @@ export default function MaterialCutList({
         })
         updateParts(id, processedParts);
         setSubmitting(false);
+        resetForm({values})
         enqueueSnackbar('Changes saved', {variant : 'success'})
       }}
     >
-      {({ values }) => (
+      {({ values, dirty, touched }) => (
         <Form>
           <FieldArray name="parts">
             {({ push, remove }) => (
@@ -197,7 +206,7 @@ export default function MaterialCutList({
                   </Grid>
                 </CardContent>
                 <CardActions>
-                  <Button variant="contained" color="primary" type="submit" disabled={!values.parts} >
+                  <Button variant="contained" color="primary" type="submit" disabled={!dirty && !touched} >
                     Save Changes
                   </Button>
                   <Button
