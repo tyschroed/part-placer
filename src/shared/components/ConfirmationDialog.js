@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -7,6 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import PropTypes from "prop-types";
+import { PrimaryButton, SecondaryButton } from "./Buttons";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,7 +21,7 @@ export default function ConfirmationDialog({
 }) {
   const [open, setOpen] = useState(false);
   const [confirmedCallback, setConfirmedCallback] = useState(null);
-  
+
   const hide = () => {
     setOpen(false);
     setConfirmedCallback(null);
@@ -69,12 +69,15 @@ export default function ConfirmationDialog({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button data-testid="confirmation-dialog-cancel" onClick={cancel} color="primary">
-            {cancelText}
-          </Button>
-          <Button data-testid="confirmation-dialog-ok" onClick={confirm} color="primary">
+          <PrimaryButton data-testid="confirmation-dialog-ok" onClick={confirm}>
             {okText}
-          </Button>
+          </PrimaryButton>
+          <SecondaryButton
+            data-testid="confirmation-dialog-cancel"
+            onClick={cancel}
+          >
+            {cancelText}
+          </SecondaryButton>
         </DialogActions>
       </Dialog>
     </>

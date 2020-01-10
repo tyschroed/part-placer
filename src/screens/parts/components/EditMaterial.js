@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
-import DimensionField from "./DimensionField";
+import DimensionField from "../../../shared/components/DimensionField";
+import { PrimaryButton } from "../../../shared/components/Buttons";
 import {
-  Button,
   CardContent,
   Card,
   makeStyles,
@@ -11,8 +11,7 @@ import {
   CardActions
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { useStore } from "./Store";
-
+import { useStore } from "../../../shared/components/Store";
 
 const useStyles = makeStyles({
   field: {
@@ -20,9 +19,15 @@ const useStyles = makeStyles({
   }
 });
 
-export default function EditMaterial({ onEditComplete=() => {}, id, width= "8'", height="4'", name="" }) {
+export default function EditMaterial({
+  onEditComplete = () => {},
+  id,
+  width = "8'",
+  height = "4'",
+  name = ""
+}) {
   const classes = useStyles();
-  const {materialChanged} = useStore();
+  const { materialChanged } = useStore();
   const validate = form => {
     const errors = {};
     if (!form.name) {
@@ -42,8 +47,8 @@ export default function EditMaterial({ onEditComplete=() => {}, id, width= "8'",
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <Card>
+        <Form style={{ width: "100%" }}>
+          <Card style={{ width: "100%" }}>
             <CardContent>
               <Field
                 label="Material Name"
@@ -53,7 +58,7 @@ export default function EditMaterial({ onEditComplete=() => {}, id, width= "8'",
                 className={classes.field}
                 type="text"
                 name="name"
-                id="material-name"
+                id={`${id}-material-name`}
               />
               <Grid container>
                 <Grid item xs>
@@ -61,24 +66,30 @@ export default function EditMaterial({ onEditComplete=() => {}, id, width= "8'",
                     name="dimensions.width"
                     className={classes.field}
                     label="Width"
+                    id={`${id}-material-width`}
                   />
                 </Grid>
                 &nbsp;
                 <Grid item xs>
-                  <DimensionField name="dimensions.height" label="Height" />
+                  <DimensionField
+                    name="dimensions.height"
+                    id={`${id}-material-height`}
+                    label="Height"
+                  />
                 </Grid>
               </Grid>
             </CardContent>
             <CardActions>
-              <Button
+              <PrimaryButton
                 data-testid="create-material"
+                fullWidth
                 variant="contained"
                 color="primary"
                 type="submit"
                 disabled={isSubmitting}
               >
-                {id ? 'Update Material' : 'Create Material'}
-              </Button>
+                {id ? "Update Material" : "Create Material"}
+              </PrimaryButton>
             </CardActions>
           </Card>
         </Form>

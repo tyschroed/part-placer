@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import EditMaterial from "./EditMaterial";
-import MaterialCutList from "./MaterialCutList";
+import MaterialPartsList from "./MaterialPartsList";
 import ReactCardFlip from "react-card-flip";
 
 export default function Material({ name, id, width, height, parts }) {
@@ -16,7 +16,7 @@ export default function Material({ name, id, width, height, parts }) {
   };
   return (
     <ReactCardFlip infinite isFlipped={editMode}>
-      <MaterialCutList
+      <MaterialPartsList
         key="front"
         id={id}
         width={width}

@@ -1,30 +1,34 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useRef } from "react";
 import { Router } from "@reach/router";
 import ErrorBoundary from "react-error-boundary";
-import { LoadingMessage } from "./shared/components/pattern";
 import Header from "./shared/components/Header";
-import Helmet from "react-helmet";
-import styled, { createGlobalStyle } from "styled-components";
-import { StylesProvider, Container } from "@material-ui/core";
-import { StoreProvider } from "./screens/home/components/Store";
+import { createGlobalStyle } from "styled-components";
+import { StylesProvider } from "@material-ui/core";
+import { StoreProvider } from "./shared/components/Store";
+import LoadingIndicator from "./shared/components/LoadingIndicator";
 import { SnackbarProvider } from "notistack";
-import Footer from "./shared/components/Footer";
+import PropTypes from "prop-types";
+
+//import Footer from "./shared/components/Footer";
 
 const GlobalStyles = createGlobalStyle`
 body {
   background-color:#333;
+  overflow-x:hidden;
 }
-#root {
-  display:flex;
-  min-height:100vh;
-  flex-direction:column;
+@media print {
+  .MuiAppBar-root {
+    display: none;
+  }
+  .pp-action-bar {
+    display: none;
+  }
 }
-`;
-const ContentContainer = styled.div`
-  flex: 1;
 `;
 
-const Home = React.lazy(() => import("./screens/home"));
+const Parts = React.lazy(() => import("./screens/parts"));
+const Layout = React.lazy(() => import("./screens/layout"));
+const About = React.lazy(() => import("./screens/about"));
 
 function ErrorFallback({ error }) {
   return (
@@ -34,31 +38,28 @@ function ErrorFallback({ error }) {
     </>
   );
 }
+ErrorFallback.propTypes = { error: PropTypes.object.isRequired };
+
 export default function App() {
+  const headerRef = useRef();
   return (
     <>
       <SnackbarProvider>
         <StoreProvider>
           <StylesProvider injectFirst>
             <GlobalStyles />
-            <Helmet>
-              <title>Cutlist Generator</title>
-            </Helmet>
-            <Header />
-              <ContentContainer>
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <Suspense
-                    fallback={
-                      <LoadingMessage>Loading Application</LoadingMessage>
-                    }
-                  >
-                    <Router>
-                      <Home path="/" />
-                    </Router>
-                  </Suspense>
-                </ErrorBoundary>
-              </ContentContainer>
-            <Footer />
+            <Header ref={headerRef} />
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Suspense
+                fallback={<LoadingIndicator message="Loading Application" />}
+              >
+                <Router>
+                  <Parts path="/" />
+                  <Layout headerRef={headerRef} path="/layout" />
+                  <About path="/about" />
+                </Router>
+              </Suspense>
+            </ErrorBoundary>
           </StylesProvider>
         </StoreProvider>
       </SnackbarProvider>

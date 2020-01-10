@@ -1,0 +1,678 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 {
+  padding: 10px;
+}
+
+.c3 {
+  margin-top: 10px;
+}
+
+.c2 {
+  width: 100px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+<div>
+  <div
+    role="group"
+    style="outline: none;"
+    tabindex="-1"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation1 c0 pp-action-bar MuiPaper-rounded"
+          paddingamount="10"
+        >
+          <div
+            class="c1"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+                  />
+                </svg>
+                 Print
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+            <form
+              action="#"
+            >
+              <div
+                class="c1"
+              >
+                <div
+                  class="MuiFormControl-root MuiTextField-root c2 MuiFormControl-marginDense MuiFormControl-fullWidth"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-marginDense MuiFormLabel-filled"
+                    data-shrink="true"
+                  >
+                    Blade Kerf
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-marginDense MuiInput-marginDense"
+                  >
+                    <input
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputMarginDense MuiInput-inputMarginDense"
+                      name="value"
+                      type="text"
+                      value="1/8\\""
+                    />
+                  </div>
+                </div>
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained"
+                  tabindex="0"
+                  type="submit"
+                >
+                  <span
+                    class="MuiButton-label"
+                  >
+                    Update 
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-lg-6"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation1 MuiCard-root MuiPaper-rounded"
+        >
+          <div
+            class="MuiCardHeader-root"
+          >
+            <div
+              class="MuiCardHeader-content"
+            >
+              <span
+                class="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock"
+              >
+                3/4 Plywood
+              </span>
+              <span
+                class="MuiTypography-root MuiCardHeader-subheader MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+              >
+                1 needed
+              </span>
+            </div>
+          </div>
+          <div
+            class="MuiCardContent-root"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-h6"
+            >
+              Parts Summary
+            </h6>
+            <table
+              class="MuiTable-root"
+            >
+              <thead
+                class="MuiTableHead-root"
+              >
+                <tr
+                  class="MuiTableRow-root MuiTableRow-head"
+                >
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall"
+                    scope="col"
+                  >
+                    Part
+                  </th>
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall"
+                    scope="col"
+                  >
+                    Dimensions
+                  </th>
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall"
+                    scope="col"
+                  >
+                    Quantity
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                class="MuiTableBody-root"
+              >
+                <tr
+                  class="MuiTableRow-root"
+                  data-testid="part-row"
+                >
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    <div
+                      class="c1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root"
+                        color="#f48fb1"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8 6h8c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z"
+                        />
+                      </svg>
+                      <span>
+                        Door
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    2'
+                     x 
+                    2'
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    2
+                  </td>
+                </tr>
+                <tr
+                  class="MuiTableRow-root"
+                  data-testid="part-row"
+                >
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    <div
+                      class="c1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root"
+                        color="#ce93d8"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8 6h8c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z"
+                        />
+                      </svg>
+                      <span>
+                        Shelf
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    3'
+                     x 
+                    3'
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    2
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h6
+              class="MuiTypography-root c3 MuiTypography-h6"
+            >
+              Parts Layout
+            </h6>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <svg
+                viewBox="0 0 96000 48000"
+                width="100%"
+              >
+                <rect
+                  fill="#b0bec5"
+                  height="48000"
+                  width="96000"
+                />
+                <g>
+                  <rect
+                    fill="#f48fb1"
+                    height="24000"
+                    stroke="#444444"
+                    width="24000"
+                    x="0"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#880e4f"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="12000"
+                    y="12000"
+                  >
+                    Back Panel
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="24125"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="32625"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="41250"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="49750"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="58375"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="66875"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="75500"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="84000"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-lg-6"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation1 MuiCard-root MuiPaper-rounded"
+        >
+          <div
+            class="MuiCardHeader-root"
+          >
+            <div
+              class="MuiCardHeader-content"
+            >
+              <span
+                class="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock"
+              >
+                1/2 Plywood
+              </span>
+              <span
+                class="MuiTypography-root MuiCardHeader-subheader MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+              >
+                1 needed
+              </span>
+            </div>
+          </div>
+          <div
+            class="MuiCardContent-root"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-h6"
+            >
+              Parts Summary
+            </h6>
+            <table
+              class="MuiTable-root"
+            >
+              <thead
+                class="MuiTableHead-root"
+              >
+                <tr
+                  class="MuiTableRow-root MuiTableRow-head"
+                >
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall"
+                    scope="col"
+                  >
+                    Part
+                  </th>
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall"
+                    scope="col"
+                  >
+                    Dimensions
+                  </th>
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall"
+                    scope="col"
+                  >
+                    Quantity
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                class="MuiTableBody-root"
+              >
+                <tr
+                  class="MuiTableRow-root"
+                  data-testid="part-row"
+                >
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    <div
+                      class="c1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root"
+                        color="#f48fb1"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8 6h8c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z"
+                        />
+                      </svg>
+                      <span>
+                        Back Panel
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    2'
+                     x 
+                    2'
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    1
+                  </td>
+                </tr>
+                <tr
+                  class="MuiTableRow-root"
+                  data-testid="part-row"
+                >
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    <div
+                      class="c1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root"
+                        color="#ce93d8"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8 6h8c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z"
+                        />
+                      </svg>
+                      <span>
+                        Drawer bottom
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    17
+                     x 
+                    24
+                  </td>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall"
+                  >
+                    4
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h6
+              class="MuiTypography-root c3 MuiTypography-h6"
+            >
+              Parts Layout
+            </h6>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <svg
+                viewBox="0 0 96000 48000"
+                width="100%"
+              >
+                <rect
+                  fill="#b0bec5"
+                  height="48000"
+                  width="96000"
+                />
+                <g>
+                  <rect
+                    fill="#f48fb1"
+                    height="24000"
+                    stroke="#444444"
+                    width="24000"
+                    x="0"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#880e4f"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="12000"
+                    y="12000"
+                  >
+                    Back Panel
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="24125"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="32625"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="41250"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="49750"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="58375"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="66875"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+                <g>
+                  <rect
+                    fill="#ce93d8"
+                    height="24000"
+                    stroke="#444444"
+                    width="17000"
+                    x="75500"
+                    y="0"
+                  />
+                  <text
+                    dominant-baseline="middle"
+                    fill="#4a148c"
+                    font-family="Arial"
+                    font-size="1000"
+                    text-anchor="middle"
+                    transform="translate(NaN, NaN) scale(NaN)"
+                    x="84000"
+                    y="12000"
+                  >
+                    Drawer bottom
+                  </text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

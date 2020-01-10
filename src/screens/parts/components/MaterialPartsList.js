@@ -1,30 +1,37 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Card,
   CardHeader,
   CardContent,
   CardActions,
-  Button,
   Typography,
   IconButton,
-  Menu,
-  MenuItem,
   Grid
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PropTypes from "prop-types";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
-import { useStore } from "./Store";
+import { useStore } from "../../../shared/components/Store";
 import { Formik, Form, Field, FieldArray } from "formik";
-import DimensionField from "./DimensionField";
+import DimensionField from "../../../shared/components/DimensionField";
+import {
+  SecondaryButton,
+  PrimaryButton
+} from "../../../shared/components/Buttons";
 import styled from "styled-components";
 import { useSnackbar } from "notistack";
 
 const CenteredGridItem = styled(Grid)`
-    align-self: center;
-`
+  align-self: center;
+`;
+
+const DenseCard = styled(Card)`
+  & .MuiCardContent-root {
+    padding-top: 0px;
+  }
+`;
 
 export default function MaterialCutList({
   id,
@@ -34,9 +41,8 @@ export default function MaterialCutList({
   onEditMaterial,
   parts
 }) {
-  const [anchorEl, setAnchorEl] = useState(null);
   const { deleteMaterial, updateParts } = useStore();
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const firstInput = useRef(null);
   useEffect(() => {
     if (firstInput.current) {
@@ -44,36 +50,27 @@ export default function MaterialCutList({
       firstInput.current.querySelector("input").focus();
     }
   }, []);
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const createPart = id => {
     return {
       name: `Part ${id}`,
       dimensions: { width: "", height: "" },
       quantity: 1,
-      id
+      id,
+      isNew: true
     };
   };
   let initialTouched;
   let initialParts = parts;
-  if(!parts.length) {
-    initialParts = [createPart(1)]
-    initialTouched = {parts : [{
-        name : true
-    }]}
-  }
-  const closeOnSelect = cb => {
-    return event => {
-      handleClose();
-      if (cb) {
-        cb(event);
-      }
+  if (!parts.length) {
+    initialParts = [createPart(1)];
+    initialTouched = {
+      parts: [
+        {
+          name: true
+        }
+      ]
     };
-  };
+  }
 
   return (
     <Formik
@@ -81,57 +78,51 @@ export default function MaterialCutList({
         parts: initialParts
       }}
       initialTouched={initialTouched}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
+      onSubmit={(values, { setSubmitting, resetForm, setFieldTouched }) => {
         const processedParts = values.parts.map(part => {
-            return {
-                ...part,
-                quantity: parseInt(part.quantity, 10)
-            }
-        })
+          return {
+            ...part,
+            quantity: parseInt(part.quantity, 10)
+          };
+        });
         updateParts(id, processedParts);
         setSubmitting(false);
-        resetForm({values})
-        enqueueSnackbar('Changes saved', {variant : 'success'})
+        resetForm({ values });
+        setFieldTouched("parts", false);
+        enqueueSnackbar("Changes saved", { variant: "success" });
       }}
     >
       {({ values, dirty, touched }) => (
         <Form>
           <FieldArray name="parts">
             {({ push, remove }) => (
-              <Card>
+              <DenseCard>
                 <CardHeader
                   title={name}
                   subheader={`${width} x ${height}`}
                   action={
                     <>
-                      <IconButton title='More actions' onClick={handleClick}>
-                        <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="material-actions-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
+                      <IconButton
+                        title="Edit Material"
+                        onClick={onEditMaterial}
+                        size="small"
                       >
-                        <MenuItem onClick={closeOnSelect(onEditMaterial)}>
-                          Edit Material
-                        </MenuItem>
-                        <ConfirmationDialog
-                          title={`Delete ${name}?`}
-                          message="Delete this material?"
-                        >
-                          {confirmDialog => (
-                            <MenuItem
-                              onClick={closeOnSelect(
-                                confirmDialog(() => deleteMaterial(id))
-                              )}
-                            >
-                              Delete Material
-                            </MenuItem>
-                          )}
-                        </ConfirmationDialog>
-                      </Menu>
+                        <EditIcon />
+                      </IconButton>
+                      <ConfirmationDialog
+                        title={`Delete ${name}?`}
+                        message="Delete this material?"
+                      >
+                        {confirmDialog => (
+                          <IconButton
+                            title="Delete Material"
+                            onClick={confirmDialog(() => deleteMaterial(id))}
+                            size="small"
+                          >
+                            <DeleteForeverIcon />
+                          </IconButton>
+                        )}
+                      </ConfirmationDialog>
                     </>
                   }
                 />
@@ -139,11 +130,11 @@ export default function MaterialCutList({
                   <Typography variant="h5">Parts</Typography>
                   <Grid container>
                     {values.parts.map((part, index) => (
-                      <Grid data-testid='part-row' key={part.id} container>
-                        <Grid item xs>
+                      <Grid data-testid="part-row" key={part.id} container>
+                        <Grid style={{ minWidth: "130px" }} item xs>
                           <Field
                             innerRef={node => {
-                              if (index === 0) {
+                              if (index === 0 && part.isNew) {
                                 firstInput.current = node;
                               }
                             }}
@@ -153,7 +144,7 @@ export default function MaterialCutList({
                             component={TextField}
                             type="text"
                             name={`parts.${index}.name`}
-                            id={`parts.${index}.name`}
+                            id={`${id}.parts.${index}.name`}
                             variant="standard"
                             margin="dense"
                           />
@@ -161,6 +152,7 @@ export default function MaterialCutList({
                         <Grid item xs>
                           <DimensionField
                             name={`parts.${index}.dimensions.width`}
+                            id={`${id}.parts.${index}.dimensions.width`}
                             label="Width"
                             showHelperText={false}
                             variant="standard"
@@ -170,6 +162,7 @@ export default function MaterialCutList({
                         <Grid item xs>
                           <DimensionField
                             name={`parts.${index}.dimensions.height`}
+                            id={`${id}.parts.${index}.dimensions.height`}
                             showHelperText={false}
                             label="Height"
                             variant="standard"
@@ -180,6 +173,7 @@ export default function MaterialCutList({
                           <Field
                             label="Qty"
                             fullWidth
+                            type="number"
                             validate={value => {
                               let errorMessage;
                               const number = parseInt(value, 0);
@@ -191,34 +185,42 @@ export default function MaterialCutList({
                             variant="standard"
                             margin="dense"
                             component={TextField}
-                            type="text"
                             name={`parts.${index}.quantity`}
-                            id={`parts.${index}.quantity`}
+                            id={`${id}.parts.${index}.quantity`}
                           />
                         </Grid>
-                        <CenteredGridItem item xs={1} >
-                            <IconButton data-testid="remove-part" onClick={() => {remove(index)}} aria-label="Remove this item">
-                                <DeleteForeverIcon />
-                            </IconButton>
+                        <CenteredGridItem item xs={1}>
+                          <IconButton
+                            data-testid="remove-part"
+                            onClick={() => {
+                              remove(index);
+                            }}
+                            aria-label="Remove this item"
+                          >
+                            <DeleteForeverIcon />
+                          </IconButton>
                         </CenteredGridItem>
                       </Grid>
                     ))}
                   </Grid>
                 </CardContent>
                 <CardActions>
-                  <Button variant="contained" color="primary" type="submit" disabled={!dirty && !touched} >
+                  <PrimaryButton
+                    type="submit"
+                    fullWidth
+                    disabled={!dirty && !touched.parts}
+                  >
                     Save Changes
-                  </Button>
-                  <Button
+                  </PrimaryButton>
+                  <SecondaryButton
+                    fullWidth
                     data-testid="add-part"
-                    variant="contained"
-                    color="primary"
                     onClick={() => push(createPart(values.parts.length + 1))}
                   >
                     Add Part
-                  </Button>
+                  </SecondaryButton>
                 </CardActions>
-              </Card>
+              </DenseCard>
             )}
           </FieldArray>
         </Form>

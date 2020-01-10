@@ -1,10 +1,9 @@
 import "jest-styled-components";
 import React from "react";
 import EditMaterial from "../EditMaterial";
-import {render, fireEvent, wait} from '../../../../../test/utils';
+import { render, fireEvent, wait } from "test-utils";
 
 const setup = () => {
-
   const onEditCompleteMock = jest.fn();
   const utils = render(<EditMaterial onEditComplete={onEditCompleteMock} />);
   return {
@@ -32,12 +31,11 @@ test("error if form is not valid", async () => {
     fireEvent.click(submitButton);
   });
   expect(
-    container.querySelector("#dimension-dimensions\\.height-helper-text")
+    container.querySelector("#undefined-material-height-helper-text")
       .textContent
   ).toContain("Required");
   expect(
-    container.querySelector("#dimension-dimensions\\.width-helper-text")
-      .textContent
+    container.querySelector("#undefined-material-width-helper-text").textContent
   ).toContain("Required");
   expect(container.textContent).toContain("Material name is required.");
   expect(onEditCompleteMock).toHaveBeenCalledTimes(0);

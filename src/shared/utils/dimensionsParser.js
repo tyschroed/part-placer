@@ -1,8 +1,12 @@
 export const unitConversions = {
   in: 1,
   '"': 1,
+  "“": 1, // curly quote
+  "”": 1, // curly quote
   ft: 12,
   "'": 12,
+  "‘": 12, // curly quote
+  "’": 12, // curly quote
   m: 39.37,
   cm: 0.3937,
   mm: 0.03937

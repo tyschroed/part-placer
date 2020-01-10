@@ -1,0 +1,7 @@
+{
+  "extends": ["react-app"],
+  "rules": {
+    "no-console": "warn",
+    "react/prop-types": [1, { "skipUndeclared": false }]
+  }
+}
