@@ -1,0 +1,10 @@
+{
+  "name": "part-placer",
+  "version": 2,
+  "scope": "tyschroed",
+  "regions": ["pdx1"],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
+}
