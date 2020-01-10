@@ -5,6 +5,7 @@ import * as serviceWorker from "./serviceWorker";
 import ReactGA from "react-ga";
 
 if (process.env.REACT_APP_ENABLE_ANALYTICS) {
+  console.log("analytics enabled", process.env.REACT_APP_ANALYTICS_TRACKING_ID);
   ReactGA.initialize(process.env.REACT_APP_ANALYTICS_TRACKING_ID);
 }
 
