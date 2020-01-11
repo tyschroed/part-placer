@@ -5,6 +5,7 @@ import Header from "./shared/components/Header";
 import { createGlobalStyle } from "styled-components";
 import { StylesProvider } from "@material-ui/core";
 import { StoreProvider } from "./shared/components/Store";
+import { AnalyticsProvider } from "./shared/components/Analytics";
 import LoadingIndicator from "./shared/components/LoadingIndicator";
 import { SnackbarProvider } from "notistack";
 import PropTypes from "prop-types";
@@ -46,21 +47,23 @@ export default function App() {
     <>
       <SnackbarProvider>
         <StoreProvider>
-          <StylesProvider injectFirst>
-            <GlobalStyles />
-            <Header ref={headerRef} />
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Suspense
-                fallback={<LoadingIndicator message="Loading Application" />}
-              >
-                <Router>
-                  <Parts path="/" />
-                  <Layout headerRef={headerRef} path="/layout" />
-                  <About path="/about" />
-                </Router>
-              </Suspense>
-            </ErrorBoundary>
-          </StylesProvider>
+          <AnalyticsProvider>
+            <StylesProvider injectFirst>
+              <GlobalStyles />
+              <Header ref={headerRef} />
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Suspense
+                  fallback={<LoadingIndicator message="Loading Application" />}
+                >
+                  <Router>
+                    <Parts path="/" />
+                    <Layout headerRef={headerRef} path="/layout" />
+                    <About path="/about" />
+                  </Router>
+                </Suspense>
+              </ErrorBoundary>
+            </StylesProvider>
+          </AnalyticsProvider>
         </StoreProvider>
       </SnackbarProvider>
     </>

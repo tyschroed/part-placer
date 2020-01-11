@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import PropTypes from "prop-types";
+import { useAnalytics } from "./Analytics";
 
 // mutations
 const MATERIAL_CHANGE = "MATERIAL_CHANGE";
@@ -101,21 +102,46 @@ export function useStore() {
   }
 
   const [state, dispatch] = context;
+  const { event } = useAnalytics();
 
   return {
     state,
     dispatch,
-    addPart: materialId => dispatch({ type: ADD_PART, payload: materialId }),
-    updateParts: (materialId, parts) =>
-      dispatch({
+    addPart: materialId => {
+      event({ category: "Parts", action: "Add Part" });
+      return dispatch({ type: ADD_PART, payload: materialId });
+    },
+    updateParts: (materialId, parts) => {
+      event({ category: "Parts", action: "Update Parts" });
+      return dispatch({
         type: UPDATE_PARTS,
         payload: { materialId, parts }
-      }),
-    deleteMaterial: materialId =>
-      dispatch({ type: DELETE_MATERIAL, payload: materialId }),
-    materialChanged: material =>
-      dispatch({ type: MATERIAL_CHANGE, payload: material }),
-    resetState: () => dispatch({ type: RESET_STATE }),
-    acknowledgeWelcome: () => dispatch({ type: ACKNOWLEDGE_WELCOME })
+      });
+    },
+    deleteMaterial: materialId => {
+      event({ category: "Parts", action: "Delete Material" });
+      return dispatch({ type: DELETE_MATERIAL, payload: materialId });
+    },
+    materialChanged: material => {
+      event({
+        category: "Parts",
+        action: material.id ? "Material Updated" : "Material Added"
+      });
+      return dispatch({ type: MATERIAL_CHANGE, payload: material });
+    },
+    resetState: () => {
+      event({
+        category: "Parts",
+        action: "Reset"
+      });
+      return dispatch({ type: RESET_STATE });
+    },
+    acknowledgeWelcome: () => {
+      event({
+        category: "Parts",
+        action: "Welcome acknowledged"
+      });
+      return dispatch({ type: ACKNOWLEDGE_WELCOME });
+    }
   };
 }

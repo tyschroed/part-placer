@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Typography, Link } from "@material-ui/core";
 import { PaddedPaper } from "../../shared/components/pattern";
+import { useAnalytics } from "../../shared/components/Analytics";
 
 export default function About() {
+  const { pageview } = useAnalytics();
+  useEffect(() => {
+    pageview("/about");
+  });
+
   return (
     <Grid container>
       <Grid item xs={12}>

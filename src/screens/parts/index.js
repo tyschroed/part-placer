@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Grow, Hidden, Fade } from "@material-ui/core";
 import Material from "./components/Material";
 import EditMaterial from "./components/EditMaterial";
@@ -14,6 +14,7 @@ import {
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Welcome from "./components/Welcome";
+import { useAnalytics } from "../../shared/components/Analytics";
 
 function CardWrapper({ children }) {
   return (
@@ -30,7 +31,10 @@ const PaddedButton = styled(SecondaryButton)`
 
 function Parts() {
   const { state, resetState } = useStore();
-
+  const { pageview } = useAnalytics();
+  useEffect(() => {
+    pageview("/");
+  });
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>

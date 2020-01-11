@@ -22,6 +22,7 @@ import {
   PrimaryButton,
   SecondaryButton
 } from "../../shared/components/Buttons";
+import { useAnalytics } from "../../shared/components/Analytics";
 
 const KerfEntry = styled(DimensionField)`
   width: 100px;
@@ -67,14 +68,18 @@ function Layout({ headerRef }) {
   const { state } = useStore();
   const [layouts, setLayouts] = useState(null);
   const [kerfSize, setKerfSize] = useState('1/8"');
+  const { pageview, event } = useAnalytics();
   const handleKerfChange = newKerf => {
     setKerfSize(newKerf);
+    event({ category: "Layout", action: "Kerf Changed" });
   };
   useEffect(() => {
     if (state.materials.length === 0) {
       navigate("/");
+    } else {
+      pageview("/layout");
     }
-  }, [state.materials]);
+  }, [state.materials, pageview]);
 
   useEffect(() => {
     const MULTIPLIER = 1000;

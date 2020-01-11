@@ -22,6 +22,7 @@ import {
 } from "../../../shared/components/Buttons";
 import styled from "styled-components";
 import { useSnackbar } from "notistack";
+import dimensionsParser from "../../../shared/utils/dimensionsParser";
 
 const CenteredGridItem = styled(Grid)`
   align-self: center;
@@ -78,6 +79,35 @@ export default function MaterialCutList({
         parts: initialParts
       }}
       initialTouched={initialTouched}
+      validate={values => {
+        const errors = { parts: [] };
+        let hasErrors = false;
+        const materialDimensions = [
+          dimensionsParser(width),
+          dimensionsParser(height)
+        ];
+        const materialShortSide = Math.min(...materialDimensions);
+        const materialLongSide = Math.max(...materialDimensions);
+        values.parts.forEach((part, idx) => {
+          errors.parts.push({});
+          const partDimensions = [
+            dimensionsParser(part.dimensions.width),
+            dimensionsParser(part.dimensions.height)
+          ];
+          const shortSide = Math.min(...partDimensions);
+          const longSide = Math.max(...partDimensions);
+          if (shortSide > materialShortSide || longSide > materialLongSide) {
+            hasErrors = true;
+            errors.parts[idx] = {
+              dimensions: {
+                width: "Exceeds material dimensions",
+                height: "Exceeds material dimensions"
+              }
+            };
+          }
+        });
+        return hasErrors ? errors : undefined;
+      }}
       onSubmit={(values, { setSubmitting, resetForm, setFieldTouched }) => {
         const processedParts = values.parts.map(part => {
           return {
