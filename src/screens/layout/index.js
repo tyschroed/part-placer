@@ -119,9 +119,10 @@ function Layout({ headerRef }) {
         return inputs;
       })
     ).then(transformedMaterials => {
+      event({ category: "Layout", action: "Layout Generated" });
       setLayouts(transformedMaterials);
     });
-  }, [state.materials, kerfSize]);
+  }, [state.materials, kerfSize, event]);
 
   return (
     <Grid container spacing={3}>
