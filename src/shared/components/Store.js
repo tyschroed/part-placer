@@ -9,8 +9,15 @@ const UPDATE_PARTS = "UPDATE_PARTS";
 const DELETE_MATERIAL = "DELETE_MATERIAL";
 const RESET_STATE = "RESET_STATE";
 const ACKNOWLEDGE_WELCOME = "ACKNOWLEDGE_WELCOME";
+const HYDRATE = "HYDRATE";
+const SET_KERF = "SET_KERF";
 
-const defaultInitialState = { materials: [], showWelcome: true };
+const defaultInitialState = {
+  materials: [],
+  showWelcome: true,
+  shared: false,
+  kerfSize: "1/8"
+};
 
 const getId = materials =>
   materials.length > 0 ? Math.max(...materials.map(m => m.id)) + 1 : 1;
@@ -59,27 +66,40 @@ const reducer = (state, action) => {
       return { ...defaultInitialState, showWelcome: state.showWelcome };
     case ACKNOWLEDGE_WELCOME:
       return { ...state, showWelcome: false };
+    case SET_KERF:
+      return { ...state, kerfSize: action.payload };
+    case HYDRATE:
+      return { ...action.payload, showWelcome: state.showWelcome };
     default:
       throw new Error(`Unknown action type ${action.type}`);
   }
 };
 
 const StoreContext = React.createContext();
+const STORAGE_KEY = "StoreContext";
+
+const saveState = state =>
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
 export function StoreProvider({ value: overrideState, ...props }) {
   let initialState = defaultInitialState;
   if (overrideState) {
     initialState = overrideState;
+    saveState(initialState);
   } else {
-    const savedState = window.localStorage.getItem("StoreContext");
+    const savedState = window.localStorage.getItem(STORAGE_KEY);
     if (savedState) {
       initialState = JSON.parse(savedState);
+      // kerf size added post-launch, so add to any states being loaded that don't have it set
+      if (!initialState.kerfSize) {
+        initialState.kerfSize = defaultInitialState.kerfSize;
+      }
     }
   }
 
   const localStorageEnabledReducer = (...args) => {
     const updatedState = reducer(...args);
-    window.localStorage.setItem("StoreContext", JSON.stringify(updatedState));
+    saveState(updatedState);
     return updatedState;
   };
 
@@ -88,7 +108,9 @@ export function StoreProvider({ value: overrideState, ...props }) {
     initialState
   );
 
-  const value = React.useMemo(() => [state, dispatch], [state]);
+  const value = React.useMemo(() => {
+    return [state, dispatch];
+  }, [state]);
 
   return <StoreContext.Provider value={value} {...props} />;
 }
@@ -111,6 +133,7 @@ export function useStore() {
       event({ category: "Parts", action: "Add Part" });
       return dispatch({ type: ADD_PART, payload: materialId });
     },
+    encodeState: () => btoa(window.localStorage.getItem(STORAGE_KEY)),
     updateParts: (materialId, parts) => {
       event({ category: "Parts", action: "Update Parts" });
       return dispatch({
@@ -135,6 +158,12 @@ export function useStore() {
         action: "Reset"
       });
       return dispatch({ type: RESET_STATE });
+    },
+    hydrate: state => {
+      return dispatch({ type: HYDRATE, payload: state });
+    },
+    setKerf: kerfSize => {
+      return dispatch({ type: SET_KERF, payload: kerfSize });
     },
     acknowledgeWelcome: () => {
       event({

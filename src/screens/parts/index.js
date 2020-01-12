@@ -15,7 +15,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Welcome from "./components/Welcome";
 import { useAnalytics } from "../../shared/components/Analytics";
-
+import { useSnackbar } from "notistack";
 function CardWrapper({ children }) {
   return (
     <Grid item xs={12} sm={12} lg={6} xl={4}>

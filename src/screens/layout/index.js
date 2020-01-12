@@ -13,6 +13,7 @@ import {
 } from "../../shared/components/pattern";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import PrintIcon from "@material-ui/icons/Print";
+import ShareIcon from "@material-ui/icons/Share";
 import PropTypes from "prop-types";
 import { Form, Formik } from "formik";
 import DimensionField from "../../shared/components/DimensionField";
@@ -23,6 +24,7 @@ import {
   SecondaryButton
 } from "../../shared/components/Buttons";
 import { useAnalytics } from "../../shared/components/Analytics";
+import { useSnackbar } from "notistack";
 
 const KerfEntry = styled(DimensionField)`
   width: 100px;
@@ -65,14 +67,16 @@ KerfForm.propTypes = {
 };
 
 function Layout({ headerRef }) {
-  const { state } = useStore();
+  const { state, encodeState, setKerf } = useStore();
   const [layouts, setLayouts] = useState(null);
-  const [kerfSize, setKerfSize] = useState('1/8"');
   const { pageview, event } = useAnalytics();
+  const { enqueueSnackbar } = useSnackbar();
   const handleKerfChange = newKerf => {
-    setKerfSize(newKerf);
+    setKerf(newKerf);
+    enqueueSnackbar(`Kerf updated`, { variant: "success" });
     event({ category: "Layout", action: "Kerf Changed" });
   };
+
   useEffect(() => {
     if (state.materials.length === 0) {
       navigate("/");
@@ -83,7 +87,7 @@ function Layout({ headerRef }) {
 
   useEffect(() => {
     const MULTIPLIER = 1000;
-    const convertedKerfSize = dimensionsParser(kerfSize) * MULTIPLIER;
+    const convertedKerfSize = dimensionsParser(state.kerfSize) * MULTIPLIER;
     const convertAndScaleDimension = dimension =>
       Math.ceil(dimensionsParser(dimension) * MULTIPLIER);
 
@@ -122,7 +126,7 @@ function Layout({ headerRef }) {
       event({ category: "Layout", action: "Layout Generated" });
       setLayouts(transformedMaterials);
     });
-  }, [state.materials, kerfSize, event]);
+  }, [state.materials, event, state.kerfSize]);
 
   return (
     <Grid container spacing={3}>
@@ -143,9 +147,9 @@ function Layout({ headerRef }) {
             <ActionBar>
               <PrimaryButton onClick={() => window.print()}>
                 <PrintIcon />
-                &nbsp;Print
+                <Hidden smDown>&nbsp;Print</Hidden>
               </PrimaryButton>
-              <KerfForm onChange={handleKerfChange} value={kerfSize} />
+              <KerfForm onChange={handleKerfChange} value={state.kerfSize} />
             </ActionBar>
           </Grid>
           {layouts.map(material => (

@@ -1,5 +1,5 @@
-import React, { Suspense, useRef } from "react";
-import { Router } from "@reach/router";
+import React, { Suspense, useRef, useEffect, useState } from "react";
+import { Router, navigate } from "@reach/router";
 import ErrorBoundary from "react-error-boundary";
 import Header from "./shared/components/Header";
 import { createGlobalStyle } from "styled-components";
@@ -7,7 +7,7 @@ import { StylesProvider } from "@material-ui/core";
 import { StoreProvider } from "./shared/components/Store";
 import { AnalyticsProvider } from "./shared/components/Analytics";
 import LoadingIndicator from "./shared/components/LoadingIndicator";
-import { SnackbarProvider } from "notistack";
+import { SnackbarProvider, useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 
 //import Footer from "./shared/components/Footer";
@@ -43,10 +43,24 @@ ErrorFallback.propTypes = { error: PropTypes.object.isRequired };
 
 export default function App() {
   const headerRef = useRef();
+  let initialState;
+  var urlParams = new URLSearchParams(window.location.search);
+  const serializedState = urlParams.get("share");
+  if (serializedState) {
+    initialState = { ...JSON.parse(atob(serializedState)), shared: true };
+  }
+  const [sharedState] = useState(initialState);
+
+  useEffect(() => {
+    if (sharedState) {
+      navigate("/");
+    }
+  }, [sharedState]);
+
   return (
     <>
       <SnackbarProvider>
-        <StoreProvider>
+        <StoreProvider value={sharedState}>
           <AnalyticsProvider>
             <StylesProvider injectFirst>
               <GlobalStyles />
