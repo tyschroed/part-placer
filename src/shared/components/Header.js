@@ -70,7 +70,9 @@ export default React.forwardRef(function Header(props, ref) {
         text: "A shared layout from part placer!",
         url: `${window.location.origin}/?state=${encodeState()}`
       });
-    } catch (err) {}
+    } catch (err) {
+      console.error("navigator share", err);
+    }
   };
 
   return (
