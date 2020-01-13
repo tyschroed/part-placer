@@ -4,13 +4,11 @@ import ErrorBoundary from "react-error-boundary";
 import Header from "./shared/components/Header";
 import { createGlobalStyle } from "styled-components";
 import { StylesProvider } from "@material-ui/core";
-import { StoreProvider } from "./shared/components/Store";
-import { AnalyticsProvider } from "./shared/components/Analytics";
+import { StoreProvider } from "./shared/context/Store";
+import { AnalyticsProvider } from "./shared/context/Analytics";
 import LoadingIndicator from "./shared/components/LoadingIndicator";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import { SnackbarProvider } from "notistack";
 import PropTypes from "prop-types";
-
-//import Footer from "./shared/components/Footer";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -41,21 +39,26 @@ function ErrorFallback({ error }) {
 }
 ErrorFallback.propTypes = { error: PropTypes.object.isRequired };
 
+function atou(b64) {
+  return decodeURIComponent(escape(atob(b64)));
+}
+
 export default function App() {
   const headerRef = useRef();
   let initialState;
   var urlParams = new URLSearchParams(window.location.search);
   const serializedState = urlParams.get("share");
   if (serializedState) {
-    initialState = { ...JSON.parse(atob(serializedState)), shared: true };
+    initialState = { ...JSON.parse(atou(serializedState)), shared: true };
   }
+
   const [sharedState] = useState(initialState);
 
   useEffect(() => {
-    if (sharedState) {
+    if (initialState) {
       navigate("/");
     }
-  }, [sharedState]);
+  }, [initialState]);
 
   return (
     <>

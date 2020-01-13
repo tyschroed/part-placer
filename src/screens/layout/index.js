@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Portal, Button, Fade, Hidden } from "@material-ui/core";
-import { useStore } from "../../shared/components/Store";
+import { useStore } from "../../shared/context/Store";
 import styled from "styled-components";
 import { navigate } from "@reach/router";
 import dimensionsParser from "../../shared/utils/dimensionsParser";
@@ -13,7 +13,6 @@ import {
 } from "../../shared/components/pattern";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import PrintIcon from "@material-ui/icons/Print";
-import ShareIcon from "@material-ui/icons/Share";
 import PropTypes from "prop-types";
 import { Form, Formik } from "formik";
 import DimensionField from "../../shared/components/DimensionField";
@@ -23,7 +22,7 @@ import {
   PrimaryButton,
   SecondaryButton
 } from "../../shared/components/Buttons";
-import { useAnalytics } from "../../shared/components/Analytics";
+import { useAnalytics } from "../../shared/context/Analytics";
 import { useSnackbar } from "notistack";
 
 const KerfEntry = styled(DimensionField)`
@@ -67,7 +66,7 @@ KerfForm.propTypes = {
 };
 
 function Layout({ headerRef }) {
-  const { state, encodeState, setKerf } = useStore();
+  const { state, setKerf } = useStore();
   const [layouts, setLayouts] = useState(null);
   const { pageview, event } = useAnalytics();
   const { enqueueSnackbar } = useSnackbar();

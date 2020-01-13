@@ -11,7 +11,7 @@ import {
   CardActions
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { useStore } from "../../../shared/components/Store";
+import { useStore } from "../../../shared/context/Store";
 
 const useStyles = makeStyles({
   field: {

@@ -25,8 +25,13 @@ export function useAnalytics() {
   }
 
   return {
-    pageview: page => enabled && reactGA.pageview(page),
-    event: ({ category, action }) =>
-      enabled && reactGA.event({ category, action })
+    pageview: React.useCallback(page => enabled && reactGA.pageview(page), [
+      reactGA,
+      enabled
+    ]),
+    event: React.useCallback(
+      ({ category, action }) => enabled && reactGA.event({ category, action }),
+      [enabled, reactGA]
+    )
   };
 }

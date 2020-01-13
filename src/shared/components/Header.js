@@ -11,7 +11,7 @@ import { Link as ReachLink } from "@reach/router";
 import styled from "styled-components";
 import HelpIcon from "@material-ui/icons/Help";
 import ShareIcon from "@material-ui/icons/Share";
-import { useStore } from "./Store";
+import { useStore } from "../context/Store";
 
 const StyledAppBar = styled(AppBar)`
   margin-bottom: 10px;
@@ -63,12 +63,13 @@ const HeaderIconButton = styled(IconButton)`
 
 export default React.forwardRef(function Header(props, ref) {
   const { encodeState } = useStore();
+
   const handleShare = async () => {
     try {
       await navigator.share({
         title: "Part Placer",
         text: "A shared layout from part placer!",
-        url: `${window.location.origin}/?state=${encodeState()}`
+        url: `${window.location.origin}/?share=${encodeState()}`
       });
     } catch (err) {
       console.error("navigator share", err);

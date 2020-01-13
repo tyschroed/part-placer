@@ -13,7 +13,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PropTypes from "prop-types";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
-import { useStore } from "../../../shared/components/Store";
+import { useStore } from "../../../shared/context/Store";
 import { Formik, Form, Field, FieldArray } from "formik";
 import DimensionField from "../../../shared/components/DimensionField";
 import {

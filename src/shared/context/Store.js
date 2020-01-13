@@ -12,11 +12,11 @@ const ACKNOWLEDGE_WELCOME = "ACKNOWLEDGE_WELCOME";
 const HYDRATE = "HYDRATE";
 const SET_KERF = "SET_KERF";
 
-const defaultInitialState = {
+export const defaultInitialState = {
   materials: [],
   showWelcome: true,
   shared: false,
-  kerfSize: "1/8"
+  kerfSize: '1/8"'
 };
 
 const getId = materials =>
@@ -117,6 +117,10 @@ export function StoreProvider({ value: overrideState, ...props }) {
 
 StoreProvider.propTypes = { value: PropTypes.object };
 
+function utoa(data) {
+  return btoa(unescape(encodeURIComponent(data)));
+}
+
 export function useStore() {
   const context = React.useContext(StoreContext);
   if (!context) {
@@ -133,7 +137,7 @@ export function useStore() {
       event({ category: "Parts", action: "Add Part" });
       return dispatch({ type: ADD_PART, payload: materialId });
     },
-    encodeState: () => btoa(window.localStorage.getItem(STORAGE_KEY)),
+    encodeState: () => utoa(window.localStorage.getItem(STORAGE_KEY)),
     updateParts: (materialId, parts) => {
       event({ category: "Parts", action: "Update Parts" });
       return dispatch({
