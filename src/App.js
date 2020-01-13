@@ -1,6 +1,5 @@
 import React, { Suspense, useRef, useEffect, useState } from "react";
 import { Router, navigate } from "@reach/router";
-import ErrorBoundary from "react-error-boundary";
 import Header from "./shared/components/Header";
 import { createGlobalStyle } from "styled-components";
 import { StylesProvider } from "@material-ui/core";
@@ -9,6 +8,7 @@ import { AnalyticsProvider } from "./shared/context/Analytics";
 import LoadingIndicator from "./shared/components/LoadingIndicator";
 import { SnackbarProvider } from "notistack";
 import PropTypes from "prop-types";
+import SentryCapturingErrorBoundary from "./SentryCapturingErrorBoundary";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -68,7 +68,7 @@ export default function App() {
             <StylesProvider injectFirst>
               <GlobalStyles />
               <Header ref={headerRef} />
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <SentryCapturingErrorBoundary>
                 <Suspense
                   fallback={<LoadingIndicator message="Loading Application" />}
                 >
@@ -78,7 +78,7 @@ export default function App() {
                     <About path="/about" />
                   </Router>
                 </Suspense>
-              </ErrorBoundary>
+              </SentryCapturingErrorBoundary>
             </StylesProvider>
           </AnalyticsProvider>
         </StoreProvider>

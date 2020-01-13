@@ -32,6 +32,7 @@ function Parts() {
   const { state, resetState } = useStore();
   const { pageview } = useAnalytics();
   useEffect(() => {
+    throw new Error("error testing");
     pageview("/");
   });
   return (

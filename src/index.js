@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import * as Sentry from "@sentry/browser";
+
+Sentry.init({
+  dsn: "https://b78fcee4986a4f269690bcd801daf5ff@sentry.io/1880175"
+});
 
 window.installPrompt = undefined;
 window.addEventListener("beforeinstallprompt", e => {

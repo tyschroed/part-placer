@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "@sentry/browser": "^5.11.0",
+    "@sentry/cli": "^1.49.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -20,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); npm run build && node scripts/sentry.js)"
   },
   "eslintConfig": {
     "extends": "react-app"
