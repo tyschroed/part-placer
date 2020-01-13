@@ -6,10 +6,5 @@
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/index.html" }
-  ],
-  "build": {
-    "env": {
-      "REACT_APP_SENTRY_RELEASE": "@NOW_GITHUB_COMMIT_SHA"
-    }
-  }
+  ]
 }
