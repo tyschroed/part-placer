@@ -23,6 +23,7 @@ import {
 import styled from "styled-components";
 import { useSnackbar } from "notistack";
 import dimensionsParser from "../../../shared/utils/dimensionsParser";
+import sanitizeDimension from "../../../shared/utils/sanitizeDimension";
 
 const CenteredGridItem = styled(Grid)`
   align-self: center;
@@ -112,6 +113,10 @@ export default function MaterialCutList({
         const processedParts = values.parts.map(part => {
           return {
             ...part,
+            dimensions: {
+              width: sanitizeDimension(part.dimensions.width),
+              height: sanitizeDimension(part.dimensions.height)
+            },
             quantity: parseInt(part.quantity, 10)
           };
         });

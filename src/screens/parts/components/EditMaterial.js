@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { useStore } from "../../../shared/context/Store";
+import sanitizeDimension from "../../../shared/utils/sanitizeDimension";
 
 const useStyles = makeStyles({
   field: {
@@ -40,15 +41,22 @@ export default function EditMaterial({
       initialValues={{ id, name, dimensions: { width, height } }}
       validate={validate}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        materialChanged(values);
+        const sanitizedValues = {
+          ...values,
+          dimensions: {
+            width: sanitizeDimension(values.dimensions.width),
+            height: sanitizeDimension(values.dimensions.height)
+          }
+        };
+        materialChanged(sanitizedValues);
         setSubmitting(false);
         onEditComplete();
         resetForm();
       }}
     >
       {({ isSubmitting }) => (
-        <Form style={{ width: "100%" }}>
-          <Card style={{ width: "100%" }}>
+        <Form>
+          <Card>
             <CardContent>
               <Field
                 label="Material Name"
