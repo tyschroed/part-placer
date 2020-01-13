@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); npm run build && node scripts/sentry.js)"
