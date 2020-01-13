@@ -14,7 +14,6 @@ import ShareIcon from "@material-ui/icons/Share";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useStore } from "../context/Store";
 import { useAnalytics } from "../context/Analytics";
-import ConfirmationDialog from "./ConfirmationDialog";
 
 const StyledAppBar = styled(AppBar)`
   margin-bottom: 10px;
@@ -70,7 +69,6 @@ export default React.forwardRef(function Header(props, ref) {
   const [installPrompt, setInstallPrompt] = useState();
 
   window.addEventListener("beforeinstallprompt", e => {
-    console.log("install prompt triggered, setting");
     setInstallPrompt(e);
   });
 
@@ -114,16 +112,9 @@ export default React.forwardRef(function Header(props, ref) {
           </HeaderIconButton>
         )}
         {installPrompt && (
-          <ConfirmationDialog
-            title="Install Part Placer"
-            message="Install Part Placer on your home screen?"
-          >
-            {confirmDialog => (
-              <HeaderIconButton onClick={confirmDialog(() => handleInstall())}>
-                <AddCircleIcon />
-              </HeaderIconButton>
-            )}
-          </ConfirmationDialog>
+          <HeaderIconButton onClick={handleInstall}>
+            <AddCircleIcon />
+          </HeaderIconButton>
         )}
         <AppBarLink title="About Part Placer" component={ReachLink} to="/about">
           <IconButton>
