@@ -11,7 +11,9 @@ import { Link as ReachLink } from "@reach/router";
 import styled from "styled-components";
 import HelpIcon from "@material-ui/icons/Help";
 import ShareIcon from "@material-ui/icons/Share";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useStore } from "../context/Store";
+import { useAnalytics } from "../context/Analytics";
 
 const StyledAppBar = styled(AppBar)`
   margin-bottom: 10px;
@@ -63,6 +65,7 @@ const HeaderIconButton = styled(IconButton)`
 
 export default React.forwardRef(function Header(props, ref) {
   const { encodeState } = useStore();
+  const { event } = useAnalytics();
 
   const handleShare = async () => {
     try {
@@ -74,6 +77,17 @@ export default React.forwardRef(function Header(props, ref) {
     } catch (err) {
       console.error("navigator share", err);
     }
+  };
+  console.log("install prompt", window.installPrompt);
+  const handleInstall = async e => {
+    window.installPrompt.prompt();
+    const { outcome } = await window.installPrompt.userChoice;
+    if (outcome === "accepted") {
+      event({ category: "App", action: "Installed" });
+    } else {
+      event({ category: "App", action: "Install declined" });
+    }
+    window.installPrompt = null;
   };
 
   return (
@@ -90,6 +104,11 @@ export default React.forwardRef(function Header(props, ref) {
         {navigator.share && (
           <HeaderIconButton onClick={handleShare}>
             <ShareIcon />
+          </HeaderIconButton>
+        )}
+        {window.installPrompt && (
+          <HeaderIconButton onClick={handleInstall}>
+            <AddCircleIcon />
           </HeaderIconButton>
         )}
         <AppBarLink title="About Part Placer" component={ReachLink} to="/about">
