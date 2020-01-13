@@ -13,11 +13,6 @@ if (process.env.REACT_APP_SENTRY_RELEASE) {
   });
 }
 
-window.installPrompt = undefined;
-window.addEventListener("beforeinstallprompt", e => {
-  window.installPrompt = e;
-});
-
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change

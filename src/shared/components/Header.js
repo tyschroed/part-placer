@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Toolbar,
   AppBar,
@@ -14,6 +14,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useStore } from "../context/Store";
 import { useAnalytics } from "../context/Analytics";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 const StyledAppBar = styled(AppBar)`
   margin-bottom: 10px;
@@ -66,6 +67,12 @@ const HeaderIconButton = styled(IconButton)`
 export default React.forwardRef(function Header(props, ref) {
   const { encodeState } = useStore();
   const { event } = useAnalytics();
+  const [installPrompt, setInstallPrompt] = useState();
+
+  window.addEventListener("beforeinstallprompt", e => {
+    console.log("install prompt triggered, setting");
+    setInstallPrompt(e);
+  });
 
   const handleShare = async () => {
     try {
@@ -78,16 +85,16 @@ export default React.forwardRef(function Header(props, ref) {
       console.error("navigator share", err);
     }
   };
-  console.log("install prompt", window.installPrompt);
+
   const handleInstall = async e => {
-    window.installPrompt.prompt();
-    const { outcome } = await window.installPrompt.userChoice;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
     if (outcome === "accepted") {
       event({ category: "App", action: "Installed" });
     } else {
       event({ category: "App", action: "Install declined" });
     }
-    window.installPrompt = null;
+    setInstallPrompt(null);
   };
 
   return (
@@ -106,10 +113,17 @@ export default React.forwardRef(function Header(props, ref) {
             <ShareIcon />
           </HeaderIconButton>
         )}
-        {window.installPrompt && (
-          <HeaderIconButton onClick={handleInstall}>
-            <AddCircleIcon />
-          </HeaderIconButton>
+        {installPrompt && (
+          <ConfirmationDialog
+            title="Install Part Placer"
+            message="Install Part Placer on your home screen?"
+          >
+            {confirmDialog => (
+              <HeaderIconButton onClick={confirmDialog(() => handleInstall())}>
+                <AddCircleIcon />
+              </HeaderIconButton>
+            )}
+          </ConfirmationDialog>
         )}
         <AppBarLink title="About Part Placer" component={ReachLink} to="/about">
           <IconButton>
