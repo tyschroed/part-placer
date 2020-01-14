@@ -11,11 +11,13 @@ const RESET_STATE = "RESET_STATE";
 const ACKNOWLEDGE_WELCOME = "ACKNOWLEDGE_WELCOME";
 const HYDRATE = "HYDRATE";
 const SET_KERF = "SET_KERF";
+const SET_ROTATION = "SET_ROTATION";
 
 export const defaultInitialState = {
   materials: [],
   showWelcome: true,
   shared: false,
+  allowRotation: true,
   kerfSize: '1/8"'
 };
 
@@ -68,6 +70,8 @@ const reducer = (state, action) => {
       return { ...state, showWelcome: false };
     case SET_KERF:
       return { ...state, kerfSize: action.payload };
+    case SET_ROTATION:
+      return { ...state, allowRotation: action.payload };
     case HYDRATE:
       return { ...action.payload, showWelcome: state.showWelcome };
     default:
@@ -93,6 +97,9 @@ export function StoreProvider({ value: overrideState, ...props }) {
       // kerf size added post-launch, so add to any states being loaded that don't have it set
       if (!initialState.kerfSize) {
         initialState.kerfSize = defaultInitialState.kerfSize;
+      }
+      if (!initialState.allowRotation) {
+        initialState.allowRotation = defaultInitialState.allowRotation;
       }
     }
   }
@@ -168,6 +175,9 @@ export function useStore() {
     },
     setKerf: kerfSize => {
       return dispatch({ type: SET_KERF, payload: kerfSize });
+    },
+    setRotation: rotationAllowed => {
+      return dispatch({ type: SET_ROTATION, payload: rotationAllowed });
     },
     acknowledgeWelcome: () => {
       event({

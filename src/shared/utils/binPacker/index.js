@@ -13,7 +13,8 @@ export default function BinPacker(
     selectionStrategy = null,
     splitStrategy = null,
     sortStrategy = null,
-    kerfSize = 0
+    kerfSize = 0,
+    allowRotation = true
   } = {}
 ) {
   return Object.keys(SELECTION_STRATEGIES)
@@ -50,7 +51,8 @@ export default function BinPacker(
         selectionStrategy,
         sortStrategy,
         sortOrder,
-        kerfSize
+        kerfSize,
+        allowRotation
       })
     )
     .reduce((bestCompressed, packResult) => {
@@ -80,7 +82,8 @@ function PackStrategy({
   splitStrategy,
   sortStrategy,
   sortOrder,
-  kerfSize
+  kerfSize,
+  allowRotation
 } = {}) {
   debug(
     `Executing! split strategy: ${splitStrategy}, selection strategy: ${selectionStrategy}, sortStrategy: ${sortStrategy}, sortOrder: ${sortOrder}`
@@ -130,8 +133,12 @@ function PackStrategy({
 
   const selectRectangleOption = item => {
     const originalOption = getSelectionOption(item);
-    const rotatedItem = rotateItem(item);
-    const rotatedOption = getSelectionOption(rotatedItem);
+    let rotatedOption = null;
+    let rotatedItem;
+    if (allowRotation) {
+      rotatedItem = rotateItem(item);
+      rotatedOption = getSelectionOption(rotatedItem);
+    }
     if (originalOption === null && rotatedOption === null) {
       debug(`No free rectangles found for`, item);
       return null;

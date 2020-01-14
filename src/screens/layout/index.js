@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Portal, Button, Fade, Hidden } from "@material-ui/core";
+import {
+  Grid,
+  Portal,
+  Button,
+  Fade,
+  Hidden,
+  FormControlLabel,
+  Switch,
+  useMediaQuery,
+  useTheme
+} from "@material-ui/core";
 import { useStore } from "../../shared/context/Store";
 import styled from "styled-components";
 import { navigate } from "@reach/router";
@@ -26,7 +36,7 @@ import { useAnalytics } from "../../shared/context/Analytics";
 import { useSnackbar } from "notistack";
 
 const KerfEntry = styled(DimensionField)`
-  width: 100px;
+  width: 50px;
   margin-left: 20px;
   margin-right: 10px;
 `;
@@ -48,7 +58,7 @@ function KerfForm({ onChange, value }) {
               margin="dense"
               name="value"
               variant="standard"
-              label="Blade Kerf"
+              label="Kerf"
             />
 
             <SecondaryButton disabled={isSubmitting} type="submit">
@@ -66,14 +76,19 @@ KerfForm.propTypes = {
 };
 
 function Layout({ headerRef }) {
-  const { state, setKerf } = useStore();
+  const { state, setKerf, setRotation } = useStore();
   const [layouts, setLayouts] = useState(null);
   const { pageview, event } = useAnalytics();
   const { enqueueSnackbar } = useSnackbar();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const handleKerfChange = newKerf => {
     setKerf(newKerf);
     enqueueSnackbar(`Kerf updated`, { variant: "success" });
     event({ category: "Layout", action: "Kerf Changed" });
+  };
+  const handleRotationChange = e => {
+    setRotation(Boolean(e.target.checked));
   };
 
   useEffect(() => {
@@ -117,7 +132,7 @@ function Layout({ headerRef }) {
             binWidth: inputs.width,
             items: inputs.convertedParts
           },
-          { kerfSize: convertedKerfSize }
+          { kerfSize: convertedKerfSize, allowRotation: state.allowRotation }
         );
         return inputs;
       })
@@ -125,7 +140,7 @@ function Layout({ headerRef }) {
       event({ category: "Layout", action: "Layout Generated" });
       setLayouts(transformedMaterials);
     });
-  }, [state.materials, event, state.kerfSize]);
+  }, [state.materials, event, state.kerfSize, state.allowRotation]);
 
   return (
     <Grid container spacing={3}>
@@ -149,6 +164,19 @@ function Layout({ headerRef }) {
                 <Hidden smDown>&nbsp;Print</Hidden>
               </PrimaryButton>
               <KerfForm onChange={handleKerfChange} value={state.kerfSize} />
+              &nbsp;
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={state.allowRotation}
+                    onChange={handleRotationChange}
+                    value="allowRotation"
+                    color="primary"
+                  />
+                }
+                labelPlacement="top"
+                label={`${matches ? "Allow " : ""}Rotation?`}
+              />
             </ActionBar>
           </Grid>
           {layouts.map(material => (
