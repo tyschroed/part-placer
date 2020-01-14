@@ -23,7 +23,7 @@
     "build": "export REACT_APP_SENTRY_RELEASE=$NOW_GITHUB_COMMIT_SHA; react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); npm run build && node scripts/sentry.js)"
+    "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse HEAD); npm run build && node scripts/sentry.js)"
   },
   "eslintConfig": {
     "extends": "react-app"
