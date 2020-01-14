@@ -33,6 +33,7 @@ function Parts() {
   const { pageview } = useAnalytics();
   useEffect(() => {
     pageview("/");
+    throw new Error("testing 123");
   });
   return (
     <Grid container spacing={3}>

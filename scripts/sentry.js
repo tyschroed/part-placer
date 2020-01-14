@@ -17,7 +17,7 @@ async function createReleaseAndUpload() {
       urlPrefix: "~/static/js",
       rewrite: false
     });
-    cli.releases.setCommits(release, { auto: true });
+    await cli.releases.setCommits(release, { auto: true });
     console.log("Finalizing release");
     await cli.releases.finalize(release);
   } catch (e) {
