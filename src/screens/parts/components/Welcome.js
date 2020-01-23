@@ -6,8 +6,8 @@ import {
   Typography,
   CardActions
 } from "@material-ui/core";
-import { useStore } from "../../../shared/context/Store";
-import { PrimaryButton } from "../../../shared/components/Buttons";
+import { useStore } from "shared/context";
+import { PrimaryButton } from "shared/components";
 
 export default function Welcome() {
   const { acknowledgeWelcome } = useStore();

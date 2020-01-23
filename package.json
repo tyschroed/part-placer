@@ -47,6 +47,7 @@
     "formik": "^2.1.1",
     "formik-material-ui": "^1.0.0",
     "notistack": "^0.9.7",
+    "parse-dimension": "^1.1.0",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
     "react-card-flip": "^1.0.10",

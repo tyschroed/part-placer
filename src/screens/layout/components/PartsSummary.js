@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import getPartColor from "../colors";
 import StopRoundedIcon from "@material-ui/icons/StopRounded";
-import { VerticallyCenteredContainer } from "../../../shared/components/pattern";
+import { VerticallyCenteredContainer } from "shared/components/pattern";
 
 export default function PartsSummary({ parts }) {
   return (

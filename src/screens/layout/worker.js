@@ -1,4 +1,4 @@
-import binPacker from "../../shared/utils/binPacker";
+import binPacker from "shared/utils/binPacker";
 
 export function pack(
   { binHeight, binWidth, items },

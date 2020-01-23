@@ -1,14 +1,14 @@
 import React from "react";
 import { render as rtlRender } from "@testing-library/react";
 import PropTypes from "prop-types";
-import { StoreProvider, defaultInitialState } from "../shared/context/Store";
+import { StoreProvider, defaultInitialState } from "shared/context/Store";
 import { SnackbarProvider } from "notistack";
 import {
   createHistory,
   createMemorySource,
   LocationProvider
 } from "@reach/router";
-import { AnalyticsProvider } from "../shared/context/Analytics";
+import { AnalyticsProvider } from "shared/context/Analytics";
 
 function render(ui, { state, ...options } = {}) {
   function Wrapper({ children }) {

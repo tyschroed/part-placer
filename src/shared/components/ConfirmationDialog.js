@@ -6,7 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import PropTypes from "prop-types";
-import { PrimaryButton, SecondaryButton } from "./Buttons";
+import { PrimaryButton, SecondaryButton } from "./pattern";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

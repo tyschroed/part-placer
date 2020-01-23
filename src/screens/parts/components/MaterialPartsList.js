@@ -12,18 +12,18 @@ import { TextField } from "formik-material-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PropTypes from "prop-types";
-import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
-import { useStore } from "../../../shared/context/Store";
-import { Formik, Form, Field, FieldArray } from "formik";
-import DimensionField from "../../../shared/components/DimensionField";
 import {
+  ConfirmationDialog,
+  DimensionField,
   SecondaryButton,
   PrimaryButton
-} from "../../../shared/components/Buttons";
+} from "shared/components";
+import { useStore } from "shared/context";
+import { Formik, Form, Field, FieldArray } from "formik";
 import styled from "styled-components";
 import { useSnackbar } from "notistack";
-import dimensionsParser from "../../../shared/utils/dimensionsParser";
-import sanitizeDimension from "../../../shared/utils/sanitizeDimension";
+import { ParseDimension } from "parse-dimension";
+import sanitizeDimension from "shared/utils/sanitizeDimension";
 
 const CenteredGridItem = styled(Grid)`
   align-self: center;
@@ -84,16 +84,16 @@ export default function MaterialCutList({
         const errors = { parts: [] };
         let hasErrors = false;
         const materialDimensions = [
-          dimensionsParser(width),
-          dimensionsParser(height)
+          ParseDimension(width),
+          ParseDimension(height)
         ];
         const materialShortSide = Math.min(...materialDimensions);
         const materialLongSide = Math.max(...materialDimensions);
         values.parts.forEach((part, idx) => {
           errors.parts.push({});
           const partDimensions = [
-            dimensionsParser(part.dimensions.width),
-            dimensionsParser(part.dimensions.height)
+            ParseDimension(part.dimensions.width),
+            ParseDimension(part.dimensions.height)
           ];
           const shortSide = Math.min(...partDimensions);
           const longSide = Math.max(...partDimensions);

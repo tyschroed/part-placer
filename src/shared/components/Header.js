@@ -12,8 +12,7 @@ import styled from "styled-components";
 import HelpIcon from "@material-ui/icons/Help";
 import ShareIcon from "@material-ui/icons/Share";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { useStore } from "../context/Store";
-import { useAnalytics } from "../context/Analytics";
+import { useAnalytics, useStore } from "shared/context";
 
 const StyledAppBar = styled(AppBar)`
   margin-bottom: 10px;

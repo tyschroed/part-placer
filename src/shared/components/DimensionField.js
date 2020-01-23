@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from "formik";
 import { TextField } from "formik-material-ui";
-import dimensionsParser from "../utils/dimensionsParser";
+import { ParseDimension } from "parse-dimension";
 import PropTypes from "prop-types";
 
 export default function DimensionField({
@@ -16,7 +16,7 @@ export default function DimensionField({
       error = "Required";
     } else {
       try {
-        dimensionsParser(value);
+        ParseDimension(value);
       } catch (err) {
         error = "Invalid dimension";
       }

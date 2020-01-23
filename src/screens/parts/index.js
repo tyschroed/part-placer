@@ -2,19 +2,18 @@ import React, { useEffect } from "react";
 import { Grid, Grow, Hidden, Fade } from "@material-ui/core";
 import Material from "./components/Material";
 import EditMaterial from "./components/EditMaterial";
-import { useStore } from "../../shared/context/Store";
-import ActionBar from "../../shared/components/ActionBar";
-import { RouterLink } from "../../shared/components/pattern";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ConfirmationDialog from "../../shared/components/ConfirmationDialog";
 import {
+  ActionBar,
+  RouterLink,
+  ConfirmationDialog,
   SecondaryButton,
   PrimaryButton
-} from "../../shared/components/Buttons";
+} from "shared/components";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Welcome from "./components/Welcome";
-import { useAnalytics } from "../../shared/context/Analytics";
+import { useAnalytics, useStore } from "shared/context";
 function CardWrapper({ children }) {
   return (
     <Grid item xs={12} sm={12} lg={6} xl={4}>

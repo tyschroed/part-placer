@@ -1,8 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
-import DimensionField from "../../../shared/components/DimensionField";
-import { PrimaryButton } from "../../../shared/components/Buttons";
+import { PrimaryButton, DimensionField } from "shared/components";
 import {
   CardContent,
   Card,
@@ -11,8 +10,8 @@ import {
   CardActions
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { useStore } from "../../../shared/context/Store";
-import sanitizeDimension from "../../../shared/utils/sanitizeDimension";
+import { useStore } from "shared/context";
+import sanitizeDimension from "shared/utils/sanitizeDimension";
 
 const useStyles = makeStyles({
   field: {

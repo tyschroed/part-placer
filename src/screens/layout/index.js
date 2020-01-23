@@ -10,29 +10,26 @@ import {
   useMediaQuery,
   useTheme
 } from "@material-ui/core";
-import { useStore } from "../../shared/context/Store";
+import { useStore, useAnalytics } from "shared/context";
 import styled from "styled-components";
 import { navigate } from "@reach/router";
-import dimensionsParser from "../../shared/utils/dimensionsParser";
+import { ParseDimension } from "parse-dimension";
 import Material from "./components/Material";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from "workerize-loader!./worker";
-import {
-  RouterLink,
-  VerticallyCenteredContainer
-} from "../../shared/components/pattern";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import PrintIcon from "@material-ui/icons/Print";
 import PropTypes from "prop-types";
 import { Form, Formik } from "formik";
-import DimensionField from "../../shared/components/DimensionField";
-import ActionBar from "../../shared/components/ActionBar";
-import LoadingIndicator from "../../shared/components/LoadingIndicator";
 import {
   PrimaryButton,
-  SecondaryButton
-} from "../../shared/components/Buttons";
-import { useAnalytics } from "../../shared/context/Analytics";
+  SecondaryButton,
+  LoadingIndicator,
+  ActionBar,
+  DimensionField,
+  RouterLink,
+  VerticallyCenteredContainer
+} from "shared/components";
 import { useSnackbar } from "notistack";
 
 const KerfEntry = styled(DimensionField)`
@@ -101,9 +98,9 @@ function Layout({ headerRef }) {
 
   useEffect(() => {
     const MULTIPLIER = 1000;
-    const convertedKerfSize = dimensionsParser(state.kerfSize) * MULTIPLIER;
+    const convertedKerfSize = ParseDimension(state.kerfSize) * MULTIPLIER;
     const convertAndScaleDimension = dimension =>
-      Math.ceil(dimensionsParser(dimension) * MULTIPLIER);
+      Math.ceil(ParseDimension(dimension) * MULTIPLIER);
 
     Promise.all(
       state.materials.map(async material => {
