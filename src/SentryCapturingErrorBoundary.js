@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as Sentry from "@sentry/browser";
 import PropTypes from "prop-types";
-import { PrimaryButton } from "./shared/components/Buttons";
+import { PrimaryButton } from "shared/components";
 
 class SentryCapturingErrorBoundary extends Component {
   constructor(props) {

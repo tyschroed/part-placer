@@ -13,7 +13,7 @@ import {
 import { useStore, useAnalytics } from "shared/context";
 import styled from "styled-components";
 import { navigate } from "@reach/router";
-import { ParseDimension } from "parse-dimension";
+import { parseDimension } from "parse-dimension";
 import Material from "./components/Material";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from "workerize-loader!./worker";
@@ -98,9 +98,9 @@ function Layout({ headerRef }) {
 
   useEffect(() => {
     const MULTIPLIER = 1000;
-    const convertedKerfSize = ParseDimension(state.kerfSize) * MULTIPLIER;
+    const convertedKerfSize = parseDimension(state.kerfSize) * MULTIPLIER;
     const convertAndScaleDimension = dimension =>
-      Math.ceil(ParseDimension(dimension) * MULTIPLIER);
+      Math.ceil(parseDimension(dimension) * MULTIPLIER);
 
     Promise.all(
       state.materials.map(async material => {

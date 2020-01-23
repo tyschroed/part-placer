@@ -22,7 +22,7 @@ import { useStore } from "shared/context";
 import { Formik, Form, Field, FieldArray } from "formik";
 import styled from "styled-components";
 import { useSnackbar } from "notistack";
-import { ParseDimension } from "parse-dimension";
+import { parseDimension } from "parse-dimension";
 import sanitizeDimension from "shared/utils/sanitizeDimension";
 
 const CenteredGridItem = styled(Grid)`
@@ -84,16 +84,16 @@ export default function MaterialCutList({
         const errors = { parts: [] };
         let hasErrors = false;
         const materialDimensions = [
-          ParseDimension(width),
-          ParseDimension(height)
+          parseDimension(width),
+          parseDimension(height)
         ];
         const materialShortSide = Math.min(...materialDimensions);
         const materialLongSide = Math.max(...materialDimensions);
         values.parts.forEach((part, idx) => {
           errors.parts.push({});
           const partDimensions = [
-            ParseDimension(part.dimensions.width),
-            ParseDimension(part.dimensions.height)
+            parseDimension(part.dimensions.width),
+            parseDimension(part.dimensions.height)
           ];
           const shortSide = Math.min(...partDimensions);
           const longSide = Math.max(...partDimensions);
