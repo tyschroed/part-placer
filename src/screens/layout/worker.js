@@ -1,15 +1,3 @@
-import binPacker from "shared/utils/binPacker";
-
-export function pack(
-  { binHeight, binWidth, items },
-  { kerfSize, allowRotation }
-) {
-  return binPacker(
-    {
-      binHeight,
-      binWidth,
-      items
-    },
-    { kerfSize, allowRotation }
-  );
-}
+// will be loaded with workerize-loader to wrap below as a service worker
+import { packer } from "guillotine-packer";
+export const pack = packer;

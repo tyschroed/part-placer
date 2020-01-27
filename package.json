@@ -46,6 +46,7 @@
     "debug": "^4.1.1",
     "formik": "^2.1.1",
     "formik-material-ui": "^1.0.0",
+    "guillotine-packer": "^1.0.2",
     "notistack": "^0.9.7",
     "parse-dimension": "^2.0.0",
     "prettier": "^1.19.1",
